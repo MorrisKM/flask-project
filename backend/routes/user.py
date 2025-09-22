@@ -2,7 +2,7 @@ from flask_restx import Namespace, Resource, fields
 from models import User
 from flask import request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, create_access_token, create_refresh_token
 
 user_ns = Namespace('User', description="This is a user namespace")
 
@@ -34,9 +34,18 @@ user_model = user_ns.model(
   }
 )
 
+login_model = user_ns.model(
+  "login",
+  {
+    "username" : fields.String(),
+    "password" : fields.String()
+  }
+)
+
 #a signup route
 @user_ns.route("/signup")
 class SignUp(Resource):
+  @user_ns.expect(user_model)
   def post(self):
     #getting the response request from the client 
     data = request.get_json()
@@ -63,3 +72,28 @@ class SignUp(Resource):
 
     return jsonify({"message": f"user: {username} created successfully"})
 
+
+@user_ns.route("/login")
+class LogIn(Resource):
+  @user_ns.expect(login_model)
+  def post(self):
+    data = request.get_json()
+
+    username = data.get("username")
+    password = data.get("password")
+
+    #verifying the user and creating access tokens for the api
+    user_db = User.query.filter_by(username = username).first()
+    if user_db and check_password_hash(user_db.password_hash, password):
+      access_token = create_access_token(identity=user_db.username)
+      refresh_token = create_refresh_token(identity=user_db.username)
+
+      return jsonify(
+        {
+          "access_token": access_token,
+          "refresh_token": refresh_token
+        }
+      )
+    
+    else:
+      return jsonify({"message": "invalid credentials or username does not exist"})
