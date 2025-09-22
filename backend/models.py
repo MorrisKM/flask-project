@@ -1,6 +1,7 @@
 from extensions import db
 from datetime import datetime
 
+
 """
 class User:
   id: integer
@@ -162,7 +163,6 @@ class Venue(db.Model):
 
 
 
-
 """
 class EventRsvp:
   id: integer
@@ -177,8 +177,8 @@ class EventRsvp:
 class EventRsvp(db.Model):
   __tablename__ = 'event_rsvps'
   id = db.Column(db.Integer, primary_key=True)
-  event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
-  user_username = db.Column(db.Integer, db.ForeignKey('users.username'))
+  event_id = db.Column(db.Integer, db.ForeignKey('events.id', name='fk_eventrsvp_event_id'))
+  user_id = db.Column(db.Integer, db.ForeignKey('users.id', name='fk_eventrsvp_user_id'))
   dietary_preference = db.Column(db.String, nullable=False)
   special_request = db.Column(db.String, nullable=False)
   rsvp_status = db.Column(db.String, nullable=False)
