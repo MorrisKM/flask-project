@@ -3,6 +3,7 @@ from flask_restx import Api
 from config import DevConfig
 from extensions import db
 from flask_migrate import Migrate
+from models import Event
 
 
 app = Flask(__name__)

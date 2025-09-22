@@ -37,6 +37,7 @@ class Event:
   description: String
   event_date: DateTime
   ticket_price: Integer
+  picture: String
   category: String
   created_at: DateTime
 """
@@ -44,12 +45,11 @@ class Event:
 class Event(db.Model):
   __tablename__ = 'events'
   id = db.Column(db.Integer, primary_key=True)
-  venue_id = db.Column(db.Integer, db.Foreign_key('venues.id'))
-  organizer_id = db.Column(db.Integer, db.Foreign_key('users.id'))
   title = db.Column(db.String, nullable=False)
   description = db.Column(db.String, nullable=False)
   event_date = db.Column(db.DateTime, nullable=False)
   ticket_price = db.Column(db.Integer, nullable=False)
+  picture = db.Column(db.String, nullable= False)
   category = db.Column(db.String, nullable=False)
   created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -60,12 +60,26 @@ class Event(db.Model):
 """
 class Venue:
   id: integer
+  venue_name: String
   owner_name: String
   owner_email: String
-  name: String
   location: String
+  picture: String
   capacity: Integer
 """
+class Venue(db.Model):
+  __tablename__ = "venues"
+  id = db.Column(db.Integer, primary_key=True)
+  venue_name = db.Column(db.String, nullable=False)
+  #owner_name can hold a persons or an organization name
+  owner_name = db.Column(db.String, nullable=False)
+  owner_email = db.Column(db.String, nullable=False)
+  location = db.Column(db.String, nullable=False)
+  picture = db.Column(db.String, nullable= False)
+  capacity = db.Column(db.Integer, nullable= False)
+
+
+
 
 """
 class EventRsvp:
