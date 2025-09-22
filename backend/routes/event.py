@@ -1,5 +1,5 @@
 from models import Event, Venue, User
-from flask import request
+from flask import request, jsonify
 from flask_restx import Resource, Namespace, fields
 from flask_jwt_extended import jwt_required
 
@@ -48,6 +48,7 @@ class EventsResource(Resource):
   
   @event_ns.marshal_with(event_model)
   @jwt_required
+  @event_ns.expect(event_model)
   def post(self):
     data = request.get_json()
     venue_id = data.get("venue_id")
@@ -71,3 +72,43 @@ class EventsResource(Resource):
     new_event.save()
 
     return new_event
+  
+
+@event_ns.route("/events/<int:id>")
+class EventResource(Resource):
+  @event_ns.marshal_with(event_model)
+  #getting an event by id
+  def get(self, id):
+    event = Event.query.get_or_404(id)
+    return event
+  
+  #updating an event using put
+  @jwt_required
+  @event_ns.marshal_with(event_model)
+  @event_ns.expect(event_model)
+  def put(self, id):
+    event_to_update = Event.query.get_or_404(id)
+    data = request.get_json()
+    venue_id = data.get("venue_id")
+    #get venue and user objects
+    venue_db = Venue.query.filter_by(id = venue_id).first()
+
+    event_to_update.update(
+      data.get("title"), 
+      data.get("description"), 
+      data.get("event_date"), 
+      data.get("ticket_price"), 
+      data.get("picture"), 
+      data.get("category"), 
+      venue_db)
+    
+    return event_to_update
+  
+  @jwt_required
+  def delete(self, id):
+    event_to_delete = Event.query.get_or_404(id)
+    event_to_delete.delete()
+
+    return jsonify({"message", f"Event: {event_to_delete.title} has been removed"}, 204)
+
+
