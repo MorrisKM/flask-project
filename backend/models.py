@@ -201,11 +201,12 @@ class EventRsvp(db.Model):
     db.session.delete(self)
     db.session.commit()
 
-  def update(self, dietary_preference, special_request, rsvp_status, event, user):
+  def update(self,event_id, user_id, dietary_preference, special_request, rsvp_status):
+    self.event_id = event_id
+    self.user_id = user_id
     self.dietary_preference = dietary_preference 
     self.special_request = special_request
     self.rsvp_status = rsvp_status
-    self.event = event
-    self.user = user
+
 
     db.session.commit()
