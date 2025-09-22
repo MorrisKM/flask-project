@@ -91,3 +91,11 @@ class EventRsvp:
   rsvp_status: String
   rsvp_date: DateTime
 """
+
+class EventRsvp(db.Model):
+  __tablename__ = 'event_rsvps'
+  id = db.Column(db.Integer, primary_key=True)
+  dietary_preference = db.Column(db.String, nullable=False)
+  special_request = db.Column(db.String, nullable=False)
+  rsvp_status = db.Column(db.String, nullable=False)
+  rsvp_date = db.Column(db.DateTime, default=datetime.utcnow)
