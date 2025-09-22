@@ -71,6 +71,44 @@ class SignUp(Resource):
     new_user.save()
 
     return jsonify({"message": f"user: {username} created successfully"})
+  
+#return data for a specific user
+@user_ns.route("/profile")
+class UserResource(Resource):
+  @jwt_required
+  @user_ns.marshal_with(user_model)
+  def get(self):
+    current_user = get_jwt_identity()
+    user = User.query.filter_by(username=current_user).first()
+
+    return user
+  
+  @jwt_required
+  def delete(self):
+    current_user = get_jwt_identity()
+    user_to_delete = User.query.filter_by(username=current_user).first()
+    user_to_delete.delete
+    
+    return jsonify({"message" : f"user: {current_user} has been removed successfully"})
+    
+#update user
+@user_ns.route("/profile/update")
+class UserResource(Resource):
+  @jwt_required
+  def put(self):
+    data = request.get_json()
+    current_user = get_jwt_identity()
+    user_to_update = User.query.filter_by(username=current_user).first()
+    user_to_update.update(
+      data.get("username"), 
+      data.get("email"), 
+      data.get("first_name"), 
+      data.get("last_name"), 
+      data.get("category"), 
+      data.get("phone_number"), 
+      data.get("age"))
+    return jsonify({"message": f"user: {current_user} updated"})
+
 
 
 @user_ns.route("/login")
@@ -102,6 +140,7 @@ class LogIn(Resource):
 #refresh token 
 @user_ns.route("/refresh")
 class RefreshResource(Resource):
+  @jwt_required
   def post(self):
     current_user= get_jwt_identity()
 
