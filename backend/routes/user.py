@@ -1,8 +1,8 @@
 from flask_restx import Namespace, Resource, fields
 from models import User
-from flask import request, jsonify
+from flask import request, jsonify, make_response
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import jwt_required, create_access_token, create_refresh_token
+from flask_jwt_extended import jwt_required, create_access_token, create_refresh_token, get_jwt_identity
 
 user_ns = Namespace('User', description="This is a user namespace")
 
@@ -97,3 +97,13 @@ class LogIn(Resource):
     
     else:
       return jsonify({"message": "invalid credentials or username does not exist"})
+    
+
+#refresh token 
+@user_ns.route("/refresh")
+class RefreshResource(Resource):
+  def post(self):
+    current_user= get_jwt_identity()
+
+    new_access_token = create_access_token(identity=current_user)
+    return make_response(jsonify({"access_token": new_access_token}), 200)
