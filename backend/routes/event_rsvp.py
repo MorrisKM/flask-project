@@ -36,11 +36,11 @@ class EventsResource(Resource):
 
     return rsvps
   
-  @jwt_required
+  @jwt_required()
   def post(self):
     data = request.get_json()
     event_db = Event.query.get_or_404(data.get("event_id"))
-    user_db = User.query.get_or_404(data.get("user_id"))
+    user_db = User.query.get_or_404(data.get('user_id'))
 
     if event_db is None or user_db is None:
       return jsonify({"message" : "event or user is not valid"})
@@ -54,11 +54,12 @@ class EventsResource(Resource):
     )
 
     new_rsvp.save()
+    return jsonify({"message" : "rsvp created"})
 
 @rsvp_ns.route("/rsvp/<int:id>")
 class EventResource(Resource):
   @rsvp_ns.marshal_with(rsvp_model)
-  @jwt_required
+  @jwt_required()
   def put(self, id):
     data = request.get_json()
     rsvp_to_update = EventRsvp.query.get_or_404(id)
@@ -72,7 +73,7 @@ class EventResource(Resource):
 
     return rsvp_to_update
   
-  @jwt_required
+  @jwt_required()
   def delete(self, id):
     rsvp_to_delete = EventRsvp.query.get_or_404(id)
     rsvp_to_delete.delete()

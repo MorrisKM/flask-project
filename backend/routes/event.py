@@ -2,6 +2,7 @@ from models import Event, Venue, User
 from flask import request, jsonify
 from flask_restx import Resource, Namespace, fields
 from flask_jwt_extended import jwt_required
+from datetime import datetime
 
 event_ns = Namespace("Events", description="this is an events namespace")
 
@@ -23,6 +24,7 @@ class Event:
 event_model = event_ns.model(
   "event",
   {
+    "id": fields.Integer(),
     "title": fields.String(),
     "description": fields.String(),
     "event_date": fields.DateTime(),
@@ -30,7 +32,7 @@ event_model = event_ns.model(
     "picture": fields.String(),
     "category": fields.String(),
     #the venue should be a drop down from the database and return the venue_id
-    "venue_id": fields.String(),
+    "venue_id": fields.Integer(),
     #the organizer should be passed with a user id
     "organizer_id": fields.Integer()
   }
@@ -47,7 +49,7 @@ class EventsResource(Resource):
     return events
   
   @event_ns.marshal_with(event_model)
-  @jwt_required
+  @jwt_required()
   @event_ns.expect(event_model)
   def post(self):
     data = request.get_json()
@@ -58,12 +60,15 @@ class EventsResource(Resource):
     #get organizer
     organizer_db = User.query.get_or_404(organizer_id)
 
+    html_date = data.get("event_date")
+    event_date = datetime.strptime(html_date, "%Y-%m-%d").date()
+
     new_event = Event(
       venue = venue_db,
       organizer = organizer_db,
       title = data.get("title"),
       description = data.get("description"),
-      event_date = data.get("event_date"),
+      event_date = event_date,
       ticket_price = data.get("ticket_price"),
       picture = data.get("picture"),
       category = data.get("category"),
@@ -83,7 +88,7 @@ class EventResource(Resource):
     return event
   
   #updating an event using put
-  @jwt_required
+  @jwt_required()
   @event_ns.marshal_with(event_model)
   @event_ns.expect(event_model)
   def put(self, id):
@@ -104,7 +109,7 @@ class EventResource(Resource):
     
     return event_to_update
   
-  @jwt_required
+  @jwt_required()
   def delete(self, id):
     event_to_delete = Event.query.get_or_404(id)
     event_to_delete.delete()

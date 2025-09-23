@@ -75,7 +75,7 @@ class SignUp(Resource):
 #return data for a specific user
 @user_ns.route("/profile")
 class UserResource(Resource):
-  @jwt_required
+  @jwt_required()
   @user_ns.marshal_with(user_model)
   def get(self):
     current_user = get_jwt_identity()
@@ -83,7 +83,7 @@ class UserResource(Resource):
 
     return user
   
-  @jwt_required
+  @jwt_required()
   def delete(self):
     current_user = get_jwt_identity()
     user_to_delete = User.query.filter_by(username=current_user).first()
@@ -94,7 +94,7 @@ class UserResource(Resource):
 #update user
 @user_ns.route("/profile/update")
 class UserResource(Resource):
-  @jwt_required
+  @jwt_required()
   def put(self):
     data = request.get_json()
     current_user = get_jwt_identity()
@@ -140,7 +140,7 @@ class LogIn(Resource):
 #refresh token 
 @user_ns.route("/refresh")
 class RefreshResource(Resource):
-  @jwt_required
+  @jwt_required()
   def post(self):
     current_user= get_jwt_identity()
 
