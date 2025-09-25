@@ -14,7 +14,7 @@ const EditVenue = () => {
       
     useEffect(()=> {
       const dataLoader = async() => {
-        const res = await fetch(`http://localhost:5005/Venue/venues/${id}`);
+        const res = await fetch(`/Venue/venues/${id}`);
         const data = await res.json();
         setVenue(data) 
       }
@@ -44,7 +44,7 @@ const EditVenue = () => {
       body: JSON.stringify(body)
     }
 
-    fetch("http://127.0.0.1:5005/Venue/venues", requestOptions)
+    fetch("/Venue/venues", requestOptions)
     .then(res => res.json())
     .then(data => console.log(data))
     .catch(err => toast.error(err.message || "something went wrong"))

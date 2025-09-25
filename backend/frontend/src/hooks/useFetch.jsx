@@ -61,7 +61,7 @@ export { deleter, updater };
 
 //data loader
 const dataLoader = async({params}) => {
-  const res = await fetch(`http://localhost:5005/Events/events/${params.id}`);
+  const res = await fetch(`/Events/events/${params.id}`);
   const data = await res.json();
   return data
 }

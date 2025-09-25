@@ -12,7 +12,7 @@ const Profile = () => {
 
   useEffect(() => {
     let fectching = async () => {
-      let fetched_data = await fetch("http://127.0.0.1:5005/User/profile",{
+      let fetched_data = await fetch("/User/profile",{
         method:"GET",
         headers: {
           'Authorization' : `Bearer ${JSON.parse(token)}`
@@ -46,7 +46,7 @@ const Profile = () => {
         body: JSON.stringify(body)
       }
 
-      fetch("http://127.0.0.1:5005/User/signup", requestOptions)
+      fetch("/User/signup", requestOptions)
       .then(res => res.json())
       .then(data => console.log(data))
       .catch(err => console.log(err))

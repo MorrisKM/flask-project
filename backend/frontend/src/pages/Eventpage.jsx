@@ -12,7 +12,7 @@ const Eventpage = () => {
 
   useEffect(()=> {
     const dataLoader = async() => {
-      const res = await fetch(`http://localhost:5005/Events/events/${id}`);
+      const res = await fetch(`/Events/events/${id}`);
       const data = await res.json();
       setEvent(data) 
     }
@@ -27,7 +27,7 @@ const Eventpage = () => {
         onClick: () => {
           toast.success('Event deleted successfully')
           setTimeout(() => {
-            deleter(`http://localhost:5005/Events/events/${id}`);
+            deleter(`/Events/events/${id}`);
             navigate('/events')
           }, 500)
         }

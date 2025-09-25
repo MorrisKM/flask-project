@@ -4,7 +4,7 @@ import { ClipLoader } from 'react-spinners';
 import EventListing from './EventListing';
 
 const EventListings = () => {
-  const {data: events, isPending, error} = useFetch('http://localhost:5005/Events/events')
+  const {data: events, isPending, error} = useFetch('/Events/events')
 
   //cliploader stylings
   const override = {

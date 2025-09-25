@@ -30,7 +30,7 @@ const AddEvent = () => {
       body: JSON.stringify(body)
     }
 
-    fetch("http://127.0.0.1:5005/Events/events", requestOptions)
+    fetch("/Events/events", requestOptions)
     .then(res => res.json())
     .then(data => console.log(data))
     .catch(err => toast.error(err.message || "something went wrong"))

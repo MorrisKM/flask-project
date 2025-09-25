@@ -3,7 +3,7 @@ import { ClipLoader } from 'react-spinners';
 import VenueListing from './VenueListing';
 
 const VenueListings = () => {
-  const {data: venues, isPending, error} = useFetch('http://localhost:5005/Venue/venues')
+  const {data: venues, isPending, error} = useFetch('/Venue/venues')
 
   //cliploader stylings
   const override = {

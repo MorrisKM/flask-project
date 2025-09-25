@@ -14,7 +14,7 @@ const EditEvent = () => {
   
     useEffect(()=> {
       const dataLoader = async() => {
-        const res = await fetch(`http://localhost:5005/Events/events/${id}`);
+        const res = await fetch(`/Events/events/${id}`);
         const data = await res.json();
         setEvent(data) 
       }
@@ -46,7 +46,7 @@ const EditEvent = () => {
       body: JSON.stringify(body)
     }
 
-    fetch("http://127.0.0.1:5005/Events/events", requestOptions)
+    fetch("/Events/events", requestOptions)
     .then(res => res.json())
     .then(data => console.log(data))
     .catch(err => toast.error(err.message || "something went wrong"))
