@@ -1,16 +1,104 @@
-# React + Vite
+A full-stack web application for creating and managing events, built with Flask backend and modern JavaScript frontend.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Quick Start
+Prerequisites
+Python 3.8+
 
-Currently, two official plugins are available:
+Node.js
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Backend Setup
+Clone and setup
 
-## React Compiler
+bash
+git clone https://github.com/MorrisKM/flask-project.git
+cd flask-project/backend
+Create virtual environment
 
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+bash
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+Install dependencies
 
-## Expanding the ESLint configuration
+bash
+pip install -r requirements.txt
+Setup environment
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+bash
+# Create .env file with:
+SECRET_KEY=your_secret_key
+JWT_SECRET_KEY=your_jwt_secret_key
+Setup database
+
+bash
+flask db upgrade
+Run the application
+
+bash
+flask run
+or for production:
+
+bash
+gunicorn run:app
+Frontend Setup
+The frontend is built and served automatically from the frontend/dist folder. No separate setup required!
+
+ What You Get
+Backend Features:
+
+REST API with Flask-RESTx
+
+JWT Authentication
+
+Database with SQLAlchemy
+
+API Documentation at /docs
+
+Frontend Features:
+
+Modern responsive design
+
+Event creation and management
+
+User registration and login
+
+Venue management
+
+RSVP system
+
+API Endpoints
+Users: Registration, login, profile management
+
+Events: edit and  delete events
+
+Venues: Manage event locations
+
+RSVPs: Handle event attendance
+
+Project Structure
+text
+backend/
+├── frontend/dist/          # Built frontend files
+├── routes/                 # API route namespaces
+├── migrations/            # Database migrations
+├── models.py              # Database models
+├── extensions.py          # Flask extensions
+└── run.py                 # Application entry point
+Development
+API Docs: Visit /docs after running the app
+
+Database: SQLite with Flask-Migrate for schema changes
+
+Authentication: JWT tokens for secure API access
+
+CORS: Enabled for cross-origin requests
+
+Deployment Ready
+The app is configured for production with:
+
+Static file serving from built frontend
+
+Gunicorn ready
+
+Environment-based configuration
+
+Database migration system
