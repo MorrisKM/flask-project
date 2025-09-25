@@ -67,6 +67,7 @@ const Eventpage = () => {
                   <FaMapMarker className="fa-solid fa-location-dot text-lg text-orange-700 mr-2"/>
                   <p className="text-orange-700">Nakuru</p>
                 </div>
+                <h3 className="text-indigo-800 text-lg font-bold mb-2">Date: {event.event_date}</h3>
               </div>
 
               <div className="bg-white p-6 rounded-lg shadow-md mt-6">
@@ -80,7 +81,7 @@ const Eventpage = () => {
 
                 <h3 className="text-indigo-800 text-lg font-bold mb-2">Ticket</h3>
 
-                <p className="mb-4">{cashFormatter(event.ticket)}</p>
+                <p className="mb-4">ksh: {event.ticket_price}</p>
               </div>
             </main>
 
@@ -101,9 +102,9 @@ const Eventpage = () => {
                   Delete Event
                 </button>
                 <button 
-                  className="bg-stone-500 text-white font-bold py-2 px-4  w-full focus:outline-none focus:shadow-outline mt-4 block"
+                  className="text-black font-bold py-2 px-4  w-full focus:outline-none focus:shadow-outline mt-4 block"
                 >
-                  Rsvp Count: 
+                  Rsvp Count: NaN
                 </button>
               </div>
             </aside>
@@ -116,15 +117,3 @@ const Eventpage = () => {
 
 export default Eventpage
 
-
-
-const cashFormatter = (cash) => {
-   const formatter = new Intl.NumberFormat('en-KE', {
-    style: 'currency',
-    currency: 'KES',
-    maximumFractionDigits: 0,
-    minimumFractionDigits: 0
-  })
-  return formatter.format(cash)
-}
-export {cashFormatter}

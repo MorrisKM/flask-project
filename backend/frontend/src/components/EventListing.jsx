@@ -21,7 +21,7 @@ const EventListing = ({event}) => {
 
         <div className="flex flex-col lg:flex-row justify-between mb-4">
           <div className="text-orange-700 mb-3">
-            {}
+            Ksh: {event.ticket_price}
           </div>
           <Link
             to={`/events/${event.id}`}
