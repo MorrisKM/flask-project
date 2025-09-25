@@ -11,69 +11,99 @@ A web application built with Flask as the backend API and a frontend served from
 - Modular route namespaces for users, events, venues, and RSVPs
 - Environment configuration with dotenv
 
-## Installation
+## EventHub - Event Planning Platform
+A full-stack web application for creating and managing events, built with Flask backend and modern JavaScript frontend.
 
-1. Clone the repository
+# Quick Start
+Prerequisites
+Python 3.8+
+
+Node.js 14+
+
+# Backend Setup
+Clone and setup
+
+bash
 git clone https://github.com/MorrisKM/flask-project.git
 cd flask-project/backend
+Create virtual environment
 
-2. Create and activate a Python virtual environment
+bash
 python -m venv .venv
-source .venv/bin/activate # On Windows use .venv\Scripts\activate
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+Install dependencies
 
-
-3. Install dependencies
-
+bash
 pip install -r requirements.txt
+Setup environment
 
-
-4. Setup environment variables
-
-Create a `.env` file in `backend` with necessary variables, e.g.:
-
+bash
+# Create .env file with:
 SECRET_KEY=your_secret_key
-JWT_SECRET_KEY=your_secret_key
+JWT_SECRET_KEY=your_jwt_secret_key
+Setup database
 
-
-5. Run database migrations
-
+bash
 flask db upgrade
+Run the application
 
-
-6. Run the app in development mode
-export FLASK_APP=run.py
+bash
 flask run
 
-or with gunicorn:
-gunicorn run:app
+# Frontend Setup
+The frontend is built and served automatically from the frontend/dist folder. No separate setup required!
 
+# What You Get
+Backend Features:
 
-## Usage
+✅ REST API with Flask-RESTx
 
-- Access the API documentation at `/docs`
-- Frontend static files are served from `/` routing to `frontend/dist/index.html`
-- API endpoints include users, events, venues, and RSVP management
+🔐 JWT Authentication
 
-## Project Structure
+🗄️ Database with SQLAlchemy
 
+📊 API Documentation at /docs
+
+# Frontend Features:
+🎯 Event creation and management
+
+👥 User registration and login
+
+📍 Venue management
+✅ RSVP system
+
+📊 API Endpoints
+Users: Registration, login, profile management
+
+Events: Create, read, update, delete events
+
+Venues: Manage event locations
+
+RSVPs: Handle event attendance
+
+🏗️ Project Structure
+text
 backend/
-├── frontend/ # Frontend source and built assets
-│ └── dist/ # Built static files served by Flask
-├── instance/ # Database and instance data
-├── migrations/ # Alembic database migrations
-├── routes/ # Route namespaces for API
-├── main.py # App factory and setup
-├── run.py # Entry point for running the app
-├── config.py # Configuration classes
-├── extensions.py # Extension instances (db, jwt, etc)
-├── models.py # Database models
-└── requirements.txt # Python dependencies
+├── frontend/dist/          # Built frontend files
+├── routes/                 # API route namespaces
+├── migrations/            # Database migrations
+├── models.py              # Database models
+├── extensions.py          # Flask extensions
+└── run.py                 # Application entry point
+🔧 Development
+API Docs: Visit /docs after running the app
 
+Database: SQLite with Flask-Migrate for schema changes
 
-## Contributing
+Authentication: JWT tokens for secure API access
 
-Contributions are welcome! Please fork the repository, create a feature branch, and issue a pull request.
+CORS: Enabled for cross-origin requests
 
-## License
+🚀 Deployment Ready
+The app is configured for production with:
 
-This project is opensource 
+Static file serving from built frontend
+
+Environment-based configuration
+
+Database migration system
