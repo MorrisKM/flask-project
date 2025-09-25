@@ -28,7 +28,7 @@ const Eventpage = () => {
           toast.success('Event deleted successfully')
           setTimeout(() => {
             deleter(`/Events/events/${id}`);
-            navigate('/events')
+            navigate('/')
           }, 500)
         }
       }

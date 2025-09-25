@@ -69,8 +69,12 @@ class SignUp(Resource):
       age = data.get("age")
     )
     new_user.save()
+    access_token = create_access_token(identity=new_user.username)
 
-    return jsonify({"message": f"user: {username} created successfully"})
+    return jsonify({
+      "message": f"user: {username} created successfully",
+      "access_token": access_token
+      })
   
 #return data for a specific user
 @user_ns.route("/profile")
