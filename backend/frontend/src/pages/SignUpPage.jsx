@@ -1,6 +1,7 @@
 import React from 'react'
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form'
+import { login } from '../auth';
 import { NavLink } from 'react-router';
 
 const SignUpPage = () => {
@@ -28,7 +29,10 @@ const SignUpPage = () => {
 
       fetch("/User/signup", requestOptions)
       .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data)
+        login(data.access_token)
+      })
       .catch(err => console.log(err))
       toast.success("User added succssfully")
 
