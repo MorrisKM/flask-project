@@ -21,7 +21,7 @@ const Login = () => {
         body: JSON.stringify(body)
       }
 
-      fetch("http://127.0.0.1:5005/User/login", requestOptions)
+      fetch("/User/login", requestOptions)
       .then(res => res.json())
       .then(data => {
         console.log(data.access_token)
