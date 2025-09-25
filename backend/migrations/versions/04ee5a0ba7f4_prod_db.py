@@ -1,8 +1,8 @@
-"""update after multiple migration delete
+"""prod db
 
-Revision ID: 972286647058
-Revises: 407cdba08c65
-Create Date: 2025-09-22 15:41:20.953502
+Revision ID: 04ee5a0ba7f4
+Revises: 
+Create Date: 2025-09-25 10:46:51.366639
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '972286647058'
-down_revision = '407cdba08c65'
+revision = '04ee5a0ba7f4'
+down_revision = None
 branch_labels = None
 depends_on = None
 
