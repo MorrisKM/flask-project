@@ -15,7 +15,7 @@ import os
 load_dotenv()
 
 def create_app(config):
-  app = Flask(__name__, static_url_path="/", static_folder="./client/build")
+  app = Flask(__name__, static_url_path="/", static_folder="./frontend/dist")
   app.config.from_object(config)
   app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
   db.init_app(app)
