@@ -19,6 +19,7 @@ class Venue:
 venue_model = venue_ns.model(
   "venue",
   {
+    "id" : fields.Integer(),
     "venue_name" : fields.String(),
     "owner_name" : fields.String(),
     "owner_email": fields.String(),
@@ -65,6 +66,11 @@ class VenuesResource(Resource):
 
 @venue_ns.route("/venues/<int:id>")
 class VenueResource(Resource):
+  @venue_ns.marshal_with(venue_model)
+  def get(self, id):
+    venue = Venue.query.get_or_404(id)
+    return venue
+
   @jwt_required()
   @venue_ns.marshal_with(venue_model)
   def put(self, id):
